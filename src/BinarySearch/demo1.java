@@ -68,7 +68,6 @@ public class demo1 {
 
         while(right>=left){
             int mid=left+(right-left)/2;
-
             if (nums[mid]>right){
                 if(nums[mid]>target){
                     if(nums[left]<target){

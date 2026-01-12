@@ -1,5 +1,7 @@
 package LinkedListProblem;
 
+import java.util.HashMap;
+
 public class LinkedList {
 
     class ListNode{
@@ -45,6 +47,10 @@ public class LinkedList {
     }
 
     public ListNode findMidNode(ListNode head){
+
+        if(head==null){
+            return null;
+        }
         ListNode slow=head;
         ListNode fast=head;
 
@@ -59,17 +65,91 @@ public class LinkedList {
         return slow;
     }
 
+    public ListNode MergeList(ListNode head1, ListNode head2){
+
+        ListNode dummyNode=new ListNode(0);
+
+        ListNode cur=dummyNode;
+
+        ListNode upNode=head1;
+        ListNode bottomNode=head2;
+
+        while(upNode!=null&&bottomNode!=null){
+            if(upNode.val>bottomNode.val){
+                cur.next=bottomNode;
+                bottomNode=bottomNode.next;
+            }else{
+                cur.next=upNode;
+                upNode=upNode.next;
+            }
+            cur=cur.next;
+        }
+
+        if (upNode!=null){
+            cur.next=upNode;
+        } else if (bottomNode!=null) {
+            cur.next=bottomNode;
+        }
+        return dummyNode.next;
+    }
+
+    public boolean checkRing(ListNode head){
+        ListNode slow=head;
+        ListNode fast=head;
+
+        while (fast!=null && fast.next!=null){
+            fast=fast.next.next;
+            slow=slow.next;
+            if(fast==slow){
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+
+    public ListNode findRingEntrance(ListNode head){
+        ListNode slow=head;
+        ListNode fast=head;
+
+        while (fast!=null && fast.next!=null){
+            fast=fast.next.next;
+            slow=slow.next;
+            if(fast==slow){
+                ListNode cur=head;
+                while (cur!=slow){
+                    cur=cur.next;
+                    slow=slow.next;
+                }
+                return cur;
+            }
+        }
+        return null;
+    }
+
+
+
 
     public static void main(String[] args) {
 
         int[] arr={1,2,3,4,5,6,10,11};
-        ListNode head=new LinkedList().arr2list(arr);
-        new LinkedList().makeListString(head);
-        ListNode reversedList=new LinkedList().reverseList(head);
+//        ListNode head=new LinkedList().arr2list(arr);
+//        new LinkedList().makeListString(head);
+//        ListNode reversedList=new LinkedList().reverseList(head);
+//        System.out.println();
+//        new LinkedList().makeListString(reversedList);
+//        System.out.println();
+//        ListNode mid=new LinkedList().findMidNode(reversedList);
+//        new LinkedList().makeListString(mid);
+        int[] arr1={1,2,3,8,9,12};
+        ListNode head1=new LinkedList().arr2list(arr);
+        ListNode head2=new LinkedList().arr2list(arr1);
+        ListNode newHead=new LinkedList().MergeList(head2,head1);
+
+        new LinkedList().makeListString(newHead);
+
+        HashMap<Integer, Integer> hashMap=new HashMap<>();
         System.out.println();
-        new LinkedList().makeListString(reversedList);
-        System.out.println();
-        ListNode mid=new LinkedList().findMidNode(reversedList);
-        new LinkedList().makeListString(mid);
     }
 }
