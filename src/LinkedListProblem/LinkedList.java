@@ -1,6 +1,7 @@
 package LinkedListProblem;
 
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class LinkedList {
 
@@ -151,5 +152,9 @@ public class LinkedList {
 
         HashMap<Integer, Integer> hashMap=new HashMap<>();
         System.out.println();
+
+        Scanner in=new Scanner(System.in);
+        int n=in.nextInt();
+
     }
 }
